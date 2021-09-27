@@ -1,0 +1,26 @@
+.App{
+  background-color: #282c34;
+  min-height: 100vh;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  /*font-size: calc(10px + 2vmin);*/
+  color: white;
+  display: grid;
+  grid-template-areas:
+          "h h"
+          "n c"
+          ;
+  grid-template-rows: 50px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 8px;
+  padding: 8px ;
+}
+
+.content {
+  grid-area: c;
+  /*background-color: #242323;*/
+  padding: 0 0 0 2px;
+  color: #bbc5de;
+}

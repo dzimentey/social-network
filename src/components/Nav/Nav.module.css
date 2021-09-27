@@ -1,0 +1,19 @@
+.nav {
+    grid-area: n;
+    background-color: rgba(69, 68, 68, 0.97);
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #c5c5c9;
+    letter-spacing: 1px;
+}
+.nav a:hover {
+    color: #e5e5e6;
+}
+.nav a.active {
+    color: white;
+    font-size: x-large;
+}

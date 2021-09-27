@@ -1,0 +1,13 @@
+.userPhoto {
+    width: 70px;
+    height: 70px;
+    border-radius: 10%;
+}
+
+.selectedPage {
+    font-weight: 500;
+    font-size: larger;
+    color: #eeeef5;
+    padding: 0 2px;
+
+}

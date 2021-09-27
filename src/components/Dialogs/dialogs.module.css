@@ -1,0 +1,19 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.dialogsItems {
+
+}
+
+.dialog a {
+    text-decoration: none;
+    color: #bbc5de;
+}
+
+.dialogsItems .active a {
+    color: white;
+    
+}
+
