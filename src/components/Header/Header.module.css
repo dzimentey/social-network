@@ -24,3 +24,13 @@
         transform: rotate(360deg);
     }
 }
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock a {
+    color: #e5e5e6;
+    text-decoration: none;
+    margin: 0px 5px 0 0;
+}
