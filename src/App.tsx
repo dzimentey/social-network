@@ -10,6 +10,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {AppStateType} from "./Redux/redux-store";
+import {HeaderContainer} from "./components/Header/headerContainer";
 
 
 type AppPropsType = {
@@ -23,7 +24,7 @@ function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="App">
-                <Header/>
+                <HeaderContainer/>
                 <Nav/>
 
                 <div className={'content'}>
