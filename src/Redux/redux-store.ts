@@ -5,6 +5,7 @@ import {sidebarReducer} from "./sidebarReducer";
 import {StoreType} from "./store";
 import {usersReducer} from "./users-reducer";
 import {Provider} from "react-redux";
+import {authReducer} from "./auth-reducer";
 
 
 let rootReducer = combineReducers(
@@ -12,7 +13,8 @@ let rootReducer = combineReducers(
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
         sidebar: sidebarReducer,
-        usersPage: usersReducer
+        usersPage: usersReducer,
+        authReducer: authReducer,
     }
 )
 export type AppStateType = ReturnType<typeof rootReducer>
