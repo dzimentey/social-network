@@ -24,3 +24,15 @@ export const getUserData = (userId: number) => {
             return response.data
         })
 }
+
+export const unFollowUser = (id: string | number) => {
+    return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{
+        withCredentials: true,
+        headers: {
+            "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+        }
+    })
+        .then(response => {
+            return response.data
+        })
+}
