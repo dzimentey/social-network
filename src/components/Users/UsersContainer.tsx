@@ -5,12 +5,9 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
-import axios from "axios";
 import {Users} from "./Users";
-import preloader from './../../assets/images/preloader.gif'
 import {Preloader} from "../coomon/preloader/Preloader";
-import {getUsers} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 export type mapStateToPropsReturnType = {
     users: UserType[]
@@ -64,7 +61,7 @@ class UsersContainerClass extends React.Component<UsersPropsType, any> {
         //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
         //     }
         // })
-            getUsers(this.props.currentPage, this.props.pageSize)
+           usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then((data) => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(data.items);
@@ -82,7 +79,7 @@ class UsersContainerClass extends React.Component<UsersPropsType, any> {
         //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
         //     }
         // })
-        getUsers(pageNumber, this.props.pageSize)
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
             .then((data) => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(data.items);
