@@ -14,7 +14,10 @@ type HeaderContainerComponentType = {
     componentDidMount() {
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                "API-KEY": "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+            }
         })
             .then((response) => {
                 if (response.data.resultCode === 0) {
