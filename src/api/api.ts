@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const baseUrl: string = `https://social-network.samuraijs.com/api/1.0/`
+
 export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
 
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {
+    return axios.get(baseUrl + `users?page=${currentPage}&count=${pageSize}`, {
         withCredentials: true,
         headers: {
             "API-KEY": "49c9fc27-b65d-436b-ad55-f34f2b452a65"
@@ -14,7 +16,7 @@ export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
 }
 
 export const getUserData = (userId: number) => {
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
+    return axios.get(baseUrl + `profile/${userId}`, {
         withCredentials: true,
         headers: {
             "API-KEY": "49c9fc27-b65d-436b-ad55-f34f2b452a65"
@@ -26,7 +28,7 @@ export const getUserData = (userId: number) => {
 }
 
 export const unFollowUser = (id: string | number) => {
-    return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{
+    return axios.delete(baseUrl + `follow/${id}`,{
         withCredentials: true,
         headers: {
             "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
@@ -38,7 +40,7 @@ export const unFollowUser = (id: string | number) => {
 }
 
 export const followUser = (id: string | number) => {
-    return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+    return axios.post(baseUrl + `follow/${id}`, {}, {
         withCredentials: true,
         headers: {
             "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
