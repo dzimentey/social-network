@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     follow, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollow,
-    UserType
+    UserType, toggleFollowingProcess
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
@@ -15,6 +15,7 @@ export type mapStateToPropsReturnType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowingProcess: boolean
 }
 
 type mapDispatchReturnType = {
@@ -24,6 +25,8 @@ type mapDispatchReturnType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingProcess: (isFetching: boolean) => void
+
 }
 
 export type UsersPropsType = mapStateToPropsReturnType & mapDispatchReturnType
@@ -96,6 +99,8 @@ class UsersContainerClass extends React.Component<UsersPropsType, any> {
                    currentPage={this.props.currentPage} users={this.props.users}
                    onPageChanged={this.onPageChanged} follow={this.props.follow}
                    unfollow={this.props.unfollow}
+                   toggleFollowingProcess={this.props.toggleFollowingProcess}
+                   isFollowingProcess={this.props.isFollowingProcess}
             />
         </>
     }
@@ -108,6 +113,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        isFollowingProcess: state.usersPage.isFollowingProcess,
     }
 }
 
@@ -146,6 +152,7 @@ export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,           //equal to   setCurrentPage: setCurrentPage,
     setTotalUsersCount,       //equal to   setTotalUsersCount: setTotalUsersCount,
     toggleIsFetching,         //equal to   toggleIsFetching: toggleIsFetching,
+    toggleFollowingProcess,
 
 })(UsersContainerClass)
 
