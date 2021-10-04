@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {setUserProfile} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter } from "react-router";
+import {getUserData} from "../../api/api";
 
 type ProfileContainerPropsType = {
    // store: AppStateType//StoreType
@@ -24,14 +25,15 @@ type CommonPropsType = RouteComponentProps<PathParamType> & ProfileContainerProp
     componentDidMount() {
         let userId = this.props.match.params.userId
         if(!userId){userId = 2 }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
-            }
-        })
-            .then((response) => {
-                this.props.setUserProfile(response.data );
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
+        //     withCredentials: true,
+        //     headers: {
+        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+        //     }
+        // })
+        getUserData(userId)
+            .then((data) => {
+                this.props.setUserProfile(data );
 
             });
 
