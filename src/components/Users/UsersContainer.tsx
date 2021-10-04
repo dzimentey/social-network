@@ -10,6 +10,7 @@ import axios from "axios";
 import {Users} from "./Users";
 import preloader from './../../assets/images/preloader.gif'
 import {Preloader} from "../coomon/preloader/Preloader";
+import {getUsers} from "../../api/api";
 
 export type mapStateToPropsReturnType = {
     users: UserType[]
@@ -57,16 +58,17 @@ class UsersContainerClass extends React.Component<UsersPropsType, any> {
         this.props.toggleIsFetching(true)
         // if (this.props.users.length === 0)
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
-            }
-        })
-            .then((response) => {
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+        //     withCredentials: true,
+        //     headers: {
+        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+        //     }
+        // })
+            getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
             });
 
     }
