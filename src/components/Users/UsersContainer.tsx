@@ -33,37 +33,10 @@ export type UsersPropsType = mapStateToPropsReturnType & mapDispatchReturnType
 
 class UsersContainerClass extends React.Component<UsersPropsType, any> {
 
-    // constructor(props: UsersPropsType) {
-    //     super(props);
-    //     if (this.props.users.length === 0) {
-    //
-    //         axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
-    //             this.props.setUsers(response.data.items)
-    //         });
-    //     }
-    // }
-
-    //  getUsers = () => {
-    //     if (this.props.users.length === 0) {
-    //
-    //         axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
-    //             this.props.setUsers(response.data.items)
-    //         });
-    //
-    //     }
-    // }
-
     componentDidMount() {
 
         this.props.toggleIsFetching(true)
-        // if (this.props.users.length === 0)
 
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        //     withCredentials: true,
-        //     headers: {
-        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
-        //     }
-        // })
            usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then((data) => {
                 this.props.toggleIsFetching(false);
@@ -76,12 +49,7 @@ class UsersContainerClass extends React.Component<UsersPropsType, any> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-        //     withCredentials: true,
-        //     headers: {
-        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
-        //     }
-        // })
+
         usersAPI.getUsers(pageNumber, this.props.pageSize)
             .then((data) => {
                 this.props.toggleIsFetching(false);
@@ -117,31 +85,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
     }
 }
 
-// let mapDispatchToProps = (dispatch: Dispatch): mapDispatchReturnType => { //(action: UserActionsType) => void  or Dispatch
-//     return {
-//         follow: (userId: string) => {
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId: string) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users: UserType[]) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (pageNumber: number) => {
-//             dispatch(setCurrentPageAC(pageNumber))
-//         },
-//         setTotalUsersCount: (totalCount: number) => {
-//             dispatch(setUsersTotalCountAC(totalCount))
-//         },
-//         toggleIsFetching: (isFetching: boolean) => {
-//             dispatch(toggleIsFetchingAC(isFetching))
-//         },
-//     }
-// }
 
-
-// export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerClass)
 export const UsersContainer = connect(mapStateToProps, {
                 // when object's  key === property the shorthand is available
 
