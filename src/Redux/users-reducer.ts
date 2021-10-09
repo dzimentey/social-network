@@ -12,7 +12,7 @@
 //
 // }
 
-import {usersAPI} from "../api/api";
+import {followUser, unFollowUser, usersAPI} from "../api/api";
 
 export type UserType = {
     id: string
@@ -136,8 +136,8 @@ export const usersReducer = (state = initialState, action: UserActionsType): Use
 
 }
 
-export const follow = (userId: string): FollowActionType => ({type: 'FOLLOW', userId})
-export const unfollow = (userId: string): UnfollowActionType => ({type: 'UNFOLLOW', userId})
+export const followSuccess = (userId: string): FollowActionType => ({type: 'FOLLOW', userId})
+export const unfollowSuccess = (userId: string): UnfollowActionType => ({type: 'UNFOLLOW', userId})
 export const setUsers = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalUsersCount} as const)
@@ -162,6 +162,46 @@ export const getUsers = (currentPage: number, pageSize: number) => {
                 dispatch(toggleIsFetching(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsersCount(data.totalCount));
+            });
+    }
+}
+
+export const follow = (userId: string) => {
+
+    return (dispatch: any) => {
+        dispatch(toggleFollowingProcess(true, userId))
+        // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+        //     withCredentials: true,
+        //     headers: {
+        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+        //     }
+        // })
+        followUser(userId)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+              dispatch(toggleFollowingProcess(false, userId))
+            });
+    }
+}
+
+export const unfollow = (userId: string) => {
+
+    return (dispatch: any) => {
+        dispatch(toggleFollowingProcess(true, userId))
+        // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+        //     withCredentials: true,
+        //     headers: {
+        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+        //     }
+        // })
+        unFollowUser(userId)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userId))
+                }
+                dispatch(toggleFollowingProcess(false, userId))
             });
     }
 }

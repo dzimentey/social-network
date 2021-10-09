@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    follow, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollow,
-    UserType, toggleFollowingProcess, getUsers
+    followSuccess, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollowSuccess,
+    UserType, toggleFollowingProcess, getUsers, follow, unfollow
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
@@ -59,7 +59,7 @@ class UsersContainerClass extends React.Component<UsersPropsType> {
                    currentPage={this.props.currentPage} users={this.props.users}
                    onPageChanged={this.onPageChanged} follow={this.props.follow}
                    unfollow={this.props.unfollow}
-                   toggleFollowingProcess={this.props.toggleFollowingProcess}
+                   //toggleFollowingProcess={this.props.toggleFollowingProcess}
                    followingProgress={this.props.followingProgress}
             />
         </>
