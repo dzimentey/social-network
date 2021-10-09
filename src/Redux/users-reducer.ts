@@ -12,6 +12,8 @@
 //
 // }
 
+import {usersAPI} from "../api/api";
+
 export type UserType = {
     id: string
     photoUrl: string
@@ -141,3 +143,25 @@ export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalUsersCount} as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
 export const toggleFollowingProcess = (isFetching: boolean, userId: string) => ({type: 'TOGGLE-IS-FOLLOWING-PROCESS', isFetching, userId} as const)
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+
+    return (dispatch: any) => {
+        dispatch (toggleIsFetching(true))
+        // if (this.props.users.length === 0)
+
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+        //     withCredentials: true,
+        //     headers: {
+        //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
+        //     }
+        // })
+        usersAPI.getUsers(currentPage, pageSize)
+            .then((data) => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+            });
+    }
+}
