@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     follow, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollow,
-    UserType, toggleFollowingProcess
+    UserType, toggleFollowingProcess, getUsersThunkCreator
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
@@ -153,6 +153,7 @@ export const UsersContainer = connect(mapStateToProps, {
     setTotalUsersCount,       //equal to   setTotalUsersCount: setTotalUsersCount,
     toggleIsFetching,         //equal to   toggleIsFetching: toggleIsFetching,
     toggleFollowingProcess,
+    getUsersThunkCreator,
 
 })(UsersContainerClass)
 
