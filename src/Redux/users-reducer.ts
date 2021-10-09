@@ -145,7 +145,7 @@ export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETC
 export const toggleFollowingProcess = (isFetching: boolean, userId: string) => ({type: 'TOGGLE-IS-FOLLOWING-PROCESS', isFetching, userId} as const)
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+export const getUsers = (currentPage: number, pageSize: number) => {
 
     return (dispatch: any) => {
         dispatch (toggleIsFetching(true))

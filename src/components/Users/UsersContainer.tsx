@@ -2,12 +2,12 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     follow, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollow,
-    UserType, toggleFollowingProcess, getUsersThunkCreator
+    UserType, toggleFollowingProcess, getUsers
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../coomon/preloader/Preloader";
-import {usersAPI} from "../../api/api";
+
 
 export type mapStateToPropsReturnType = {
     users: UserType[]
@@ -26,35 +26,27 @@ type mapDispatchReturnType = {
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProcess: (isFetching: boolean, id: string) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 
 }
 
 export type UsersPropsType = mapStateToPropsReturnType & mapDispatchReturnType
 
-class UsersContainerClass extends React.Component<UsersPropsType, any> {
+class UsersContainerClass extends React.Component<UsersPropsType> {
 
     componentDidMount() {
 
-        this.props.toggleIsFetching(true)
-
-           usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then((data) => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
 
     }
 
     onPageChanged = (pageNumber: number) => {
+
+        this.props.getUsers(pageNumber, this.props.pageSize)
+
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
 
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then((data) => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-            });
     }
 
     render() {
@@ -97,7 +89,7 @@ export const UsersContainer = connect(mapStateToProps, {
     setTotalUsersCount,       //equal to   setTotalUsersCount: setTotalUsersCount,
     toggleIsFetching,         //equal to   toggleIsFetching: toggleIsFetching,
     toggleFollowingProcess,
-    getUsersThunkCreator,
+    getUsers,
 
 })(UsersContainerClass)
 
