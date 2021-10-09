@@ -15,7 +15,7 @@ export type mapStateToPropsReturnType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    isFollowingProcess: boolean
+    followingProgress: boolean
 }
 
 type mapDispatchReturnType = {
@@ -25,7 +25,7 @@ type mapDispatchReturnType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
-    toggleFollowingProcess: (isFetching: boolean) => void
+    toggleFollowingProcess: (isFetching: boolean, id: string) => void
 
 }
 
@@ -100,7 +100,7 @@ class UsersContainerClass extends React.Component<UsersPropsType, any> {
                    onPageChanged={this.onPageChanged} follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    toggleFollowingProcess={this.props.toggleFollowingProcess}
-                   isFollowingProcess={this.props.isFollowingProcess}
+                   followingProgress={this.props.followingProgress}
             />
         </>
     }
@@ -113,7 +113,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        isFollowingProcess: state.usersPage.isFollowingProcess,
+        followingProgress: state.usersPage.followingProgress,
     }
 }
 
