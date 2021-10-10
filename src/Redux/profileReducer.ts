@@ -1,4 +1,5 @@
 import {ActionsTypes, postsDataType, profilePageType,} from "./store";
+import {getUserData} from "../api/api";
 
 
 // export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateInputTextAC> |
@@ -18,6 +19,12 @@ export const updateInputTextAC = (inputText: string) => { //actionCreator with a
 
 }
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
+
+export const getUserProfile = (userId: number) => (dispatch: any) => {
+    getUserData(userId).then((data) => {
+            dispatch(setUserProfile(data ))
+        })
+}
 
 
 const initialState: profilePageType = {
