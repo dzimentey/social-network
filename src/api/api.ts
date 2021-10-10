@@ -52,9 +52,9 @@ export const usersAPI = {
 
     getUserData(userId: number)  {
         return instance.get( `profile/${userId}`, )
-            .then(response => {
-                return response.data
-            })
+            // .then(response => {
+            //     return response.data
+            // })
     },
 
     unFollowUser(id: string | number)  {
@@ -72,3 +72,9 @@ export const usersAPI = {
     },
 
 };
+
+export const authAPI = {
+    me() {
+        return instance.get('auth/me')
+    }
+}
