@@ -1,3 +1,4 @@
+import {authAPI} from "../api/api";
 
 
 type UserServerType = {
@@ -42,3 +43,13 @@ export const setAuthUserData = (id: number, email: string, login: string) => ({
 
 
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
+
+export const getAuthUserData = () => (dispatch: any) => {
+    authAPI.me()
+        .then((response) => {
+            if (response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data;
+                dispatch(setAuthUserData(id, email, login))
+            }
+        });
+}
