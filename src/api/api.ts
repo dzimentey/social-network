@@ -19,7 +19,7 @@ export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
         })
 }
 
-export const getUserData = (userId: number) => {
+ const getUserData = (userId: number) => {
     return instance.get( `profile/${userId}`, )
         .then(response => {
             return response.data
@@ -52,9 +52,9 @@ export const usersAPI = {
 
     getUserData(userId: number)  {
         return instance.get( `profile/${userId}`, )
-            // .then(response => {
-            //     return response.data
-            // })
+            .then(response => {
+                return response.data
+            })
     },
 
     unFollowUser(id: string | number)  {
