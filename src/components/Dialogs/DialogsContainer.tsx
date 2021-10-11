@@ -3,11 +3,13 @@ import {ActionsTypes, dialogsPageType, stateType, StoreType} from "../../Redux/s
 import {sendMessageAC, UpdateMessageBodyAC} from "../../Redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
+import {AppStateType} from "../../Redux/redux-store";
 
 
-let mapStateToProps = (state: stateType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
