@@ -4,6 +4,7 @@ import {sendMessageAC, UpdateMessageBodyAC} from "../../Redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 
 let mapStateToProps = (state: AppStateType) => {
@@ -21,6 +22,11 @@ let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
             dispatch(sendMessageAC())
         }
     }
+}
+
+const AuthRedirectComponent = (props: any) => {
+    if (props.isAuth === false) return <Redirect to={'/login'}/>
+    return <Dialogs {...props}/>
 }
 
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
