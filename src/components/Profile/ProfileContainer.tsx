@@ -53,15 +53,17 @@ class ProfileContainerComponent extends React.Component<CommonPropsType, any> {
 }
 
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainerComponent);
-//     (props: CommonPropsType) => {
-//     if (props.isAuth === false) return <Redirect to={'/login'}/>
-//     return <ProfileContainerComponent {...props}/>
-// }
+let AuthRedirectComponent : any = withAuthRedirect(ProfileContainerComponent);
+
+let mapStateToPropsForRedirect = (state:AppStateType) => ({
+   isAuth: state.auth.isAuth
+});
+
+AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
 
 const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth,
+   // isAuth: state.auth.isAuth,
 })
 
 let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
