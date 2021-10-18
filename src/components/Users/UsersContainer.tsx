@@ -7,6 +7,7 @@ import {
 import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../coomon/preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 export type mapStateToPropsReturnType = {
@@ -77,6 +78,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
     }
 }
 
+let withRedirect = withAuthRedirect(UsersContainerClass);
 
 export const UsersContainer = connect(mapStateToProps, {
                 // when object's  key === property the shorthand is available
@@ -91,5 +93,5 @@ export const UsersContainer = connect(mapStateToProps, {
     toggleFollowingProcess,
     getUsers,
 
-})(UsersContainerClass)
+})(withRedirect)
 
