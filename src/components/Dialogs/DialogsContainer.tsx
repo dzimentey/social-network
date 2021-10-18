@@ -11,7 +11,6 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 let mapStateToProps = (state: AppStateType) => {
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
@@ -30,25 +29,3 @@ const AuthRedirectComponent = withAuthRedirect(Dialogs)
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 
-// type DialogsContainerPropsType = {
-//     store: StoreType
-// }
-//
-// export const DialogsContainer = (props: DialogsContainerPropsType) => {
-//
-//     let dialogsPage: dialogsPageType = props.store.getState().dialogsPage
-//
-//     const onMessageClick = () => {
-//         props.store.dispatch(sendMessageAC())
-//     }
-//
-//     const onNewMessageChange = (newText: string) => {
-//         props.store.dispatch(UpdateMessageBodyAC(newText))
-//     }
-//
-//     return (
-//         <Dialogs updateNewMessageBody={onNewMessageChange} sendMessage={onMessageClick}
-//                  dialogsPage={dialogsPage}
-//         />
-//     )
-// }
