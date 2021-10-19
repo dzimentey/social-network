@@ -25,13 +25,12 @@ let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     }
 }
 
-compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect
-)(Dialogs)
 
-const AuthRedirectComponent = withAuthRedirect(Dialogs)
+const AuthRedirectComponent = withAuthRedirect(Dialogs);
 
-export const DialogsContainer = compose(connect(mapStateToProps, mapDispatchToProps))( withAuthRedirect(Dialogs));
+export const DialogsContainer = compose<React.ComponentType>( // compose doesn't work without Type: <React.ComponentType>
+    connect(mapStateToProps, mapDispatchToProps),             // 1-st wrapper
+    withAuthRedirect                                          // 2-nd wrapper
+)(Dialogs);                                                   // Component
 
 
