@@ -68,5 +68,5 @@ let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 export const ProfileContainer = compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile}), // 1-st wrapper
     withRouter,                                                 // 2-nd wrapper
-    withAuthRedirect                                            // 3-rd wrapper
+    //withAuthRedirect                                            // 3-rd wrapper
 )(ProfileContainerComponent);                                   // Component
