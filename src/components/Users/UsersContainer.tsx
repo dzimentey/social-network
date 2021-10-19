@@ -107,6 +107,6 @@ export const UsersContainer = compose<React.ComponentType>(
             toggleFollowingProcess,
             getUsers,
         }
-    ), withAuthRedirect)   // 2-nd function wrapper
+    ), withAuthRedirect)   // 2-nd function wrapper --> redirect unauthorised user to login page
 (UsersContainerClass)     // Component
 
