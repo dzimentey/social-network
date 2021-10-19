@@ -6,15 +6,16 @@ type ProfileStatusType = {
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
     state = {
-        editMode: false
+        editMode: false,
+        title: 'Hi',
     }
 
     editModeOn = () => {
         this.setState( {editMode: true} ) // update state via proper way
        // this.forceUpdate()  not recommended method to update state
     }
-    editModeOff = () => {
-        this.setState( {editMode: false} )
+    editModeOff = () => { // method created via arrow doesn't require binding when it pass to onClick (callBack)
+        this.setState( {editMode: false} )  // without arrow function --> onClick ={ this.editModeOff.bind(this) }
     }
 
     render() {
