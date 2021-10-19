@@ -8,6 +8,7 @@ import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../coomon/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 export type mapStateToPropsReturnType = {
@@ -80,18 +81,32 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
 
 let withRedirect = withAuthRedirect(UsersContainerClass);
 
-export const UsersContainer = connect(mapStateToProps, {
-                // when object's  key === property the shorthand is available
+// export const UsersContainer = connect(mapStateToProps, {
+//                 // when object's  key === property the shorthand is available
+//
+//
+//     follow,                   //equal to   follow: follow,
+//     unfollow,                 //equal to   unfollow: unfollow,
+//     setUsers,                 //equal to   setUsers: setUsers,
+//     setCurrentPage,           //equal to   setCurrentPage: setCurrentPage,
+//     setTotalUsersCount,       //equal to   setTotalUsersCount: setTotalUsersCount,
+//     toggleIsFetching,         //equal to   toggleIsFetching: toggleIsFetching,
+//     toggleFollowingProcess,
+//     getUsers,
+//
+// })(withRedirect)
 
-
-    follow,                   //equal to   follow: follow,
-    unfollow,                 //equal to   unfollow: unfollow,
-    setUsers,                 //equal to   setUsers: setUsers,
-    setCurrentPage,           //equal to   setCurrentPage: setCurrentPage,
-    setTotalUsersCount,       //equal to   setTotalUsersCount: setTotalUsersCount,
-    toggleIsFetching,         //equal to   toggleIsFetching: toggleIsFetching,
-    toggleFollowingProcess,
-    getUsers,
-
-})(withRedirect)
+export const UsersContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, { // 1-st function wrapper
+            follow,
+            unfollow,
+            setUsers,
+            setCurrentPage,
+            setTotalUsersCount,
+            toggleIsFetching,
+            toggleFollowingProcess,
+            getUsers,
+        }
+    ), withAuthRedirect)   // 2-nd function wrapper
+(UsersContainerClass)     // Component
 
