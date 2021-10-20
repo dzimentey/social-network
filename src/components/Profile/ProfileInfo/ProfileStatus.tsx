@@ -1,31 +1,50 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 
 type ProfileStatusType = {
     status: string
+    updateStatus: (newStatus: string) => void
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusType> {
-    state = {
+type localStateType = {
+    editMode: boolean
+    status: string
+}
+
+export class ProfileStatus extends React.Component<ProfileStatusType, any> {
+
+    state: localStateType = {
         editMode: false,
-        title: 'Hi',
+        status: this.props.status,
     }
 
     editModeOn = () => {
-        this.setState( {editMode: true} ) // update state via proper way
-       // this.forceUpdate()  not recommended method to update state
+        this.setState({editMode: true}) // update state via proper way
+        // this.forceUpdate()  not recommended method to update state
     }
     editModeOff = () => { // method created via arrow doesn't require binding when it pass to onClick (callBack)
-        this.setState( {editMode: false} )  // without arrow function --> onClick ={ this.editModeOff.bind(this) }
+        this.setState({editMode: false});// without arrow function --> onClick ={ this.editModeOff.bind(this) }
+        this.props.updateStatus(this.state.status);
+    }
+
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({status: e.currentTarget.value})
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<localStateType>, snapshot?: any) {
+        if(prevProps.status !== this.props.status)
+        this.setState({state: this.props.status})
     }
 
     render() {
         return (
             <div>
-                { this.state.editMode
+                {this.state.editMode
                     ?
-                     <div><input onBlur={this.editModeOff} value={this.props.status} autoFocus/></div>
+                    <div><input onChange={this.onStatusChange} onBlur={this.editModeOff} value={this.state.status}
+                                autoFocus/></div>
                     :
-                    <div><span onDoubleClick={this.editModeOn}>{this.props.status}</span></div>
+                    <div><span onDoubleClick={this.editModeOn}>{this.props.status || 'No status yet'}</span></div>
                 }
                 <br/>
             </div>
