@@ -1,6 +1,12 @@
-import {addPostAC, profileReducer, setUserProfile, updateInputTextAC} from "./profileReducer";
+import {
+    addPostAC,
+    profileReducer,
+    setUserProfile,
+    updateInputTextAC
+} from "./profileReducer";
 import {dialogsReducer, SendMessageType, UpdateMessageBodyType} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
+
 
 export type messagesDataType = {
     id: string
@@ -19,6 +25,7 @@ export type profilePageType = {
     postsData: Array<postsDataType>
     newPostDataMessage: string
     profile: any
+    status: string
 }
 export type dialogsPageType = {
     dialogsData: Array<dialogsDataType>
@@ -41,7 +48,6 @@ export type StoreType = {
 
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateInputTextAC> |
     UpdateMessageBodyType | SendMessageType | ReturnType<typeof setUserProfile>
-
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -55,6 +61,7 @@ export const store: StoreType = {
                 {id: '6', message: 'Hello guys', likesAmount: '3'},
             ],
             profile: null,
+            status: '',
 
         },
         dialogsPage: {
@@ -86,7 +93,7 @@ export const store: StoreType = {
     getState() {
         return this._state
     },
-    dispatch(action) {
+    dispatch(action: any) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
