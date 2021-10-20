@@ -40,6 +40,7 @@ export const followUser = (id: string | number) => {
         })
 }
 
+
 export const usersAPI = {
 
     getUsers(currentPage: number = 1, pageSize: number = 10) {
@@ -51,10 +52,7 @@ export const usersAPI = {
     },
 
     getUserData(userId: number)  {
-        return instance.get( `profile/${userId}`, )
-            .then(response => {
-                return response.data
-            })
+        return profileAPI.getProfile(userId)
     },
 
     unFollowUser(id: string | number)  {
@@ -73,8 +71,25 @@ export const usersAPI = {
 
 };
 
+
 export const authAPI = {
     me() {
         return instance.get('auth/me')
     }
-}
+};
+
+export const profileAPI = {
+
+    getProfile(userId: number)  {
+        return instance.get( `profile/${userId}`, )
+            .then(response => {
+                return response.data
+            })
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status`, {status: status})
+    },
+};
