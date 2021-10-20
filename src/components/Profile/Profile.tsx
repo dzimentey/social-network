@@ -13,12 +13,14 @@ type ProfilePropsType = {
     //dispatch: (action: ActionsTypes) => void
     //store: AppStateType//StoreType
     profile: any
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
 
             {/*<MyPosts postsData={props.postsData} message={props.message}*/}
