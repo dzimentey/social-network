@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import {ActionsTypes, postsDataType, stateType, StoreType} from "../../../Redux/store";
-import {addPostAC, updateInputTextAC} from "../../../Redux/profileReducer";
+import {addPostAC} from "../../../Redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 
@@ -9,15 +9,15 @@ import {connect} from "react-redux";
 const mapStateToProps = (state: stateType) => {
     return {
         postsData: state.profilePage.postsData,
-        message: state.profilePage.newPostDataMessage
+       // message: state.profilePage.newPostDataMessage
     }
 }
 
 const mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     return {
-        updateInputText: (inputText: string) => {
-            dispatch(updateInputTextAC(inputText))
-        },
+        // updateInputText: (inputText: string) => {
+        //     dispatch(updateInputTextAC(inputText))
+        // },
         addPost: (text: string) => {
 
             dispatch(addPostAC(text))
