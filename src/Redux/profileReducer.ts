@@ -2,7 +2,7 @@ import { postsDataType, profilePageType,} from "./store";
 import {profileAPI, usersAPI} from "../api/api";
 
 
-export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateInputTextAC> |
+export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus>
 
 export const addPostAC = (text: string) => {  //actionCreator with auto type
@@ -11,17 +11,16 @@ export const addPostAC = (text: string) => {  //actionCreator with auto type
         postText: text,
     } as const
 }
-export const updateInputTextAC = (inputText: string) => { //actionCreator with auto type
-    return {
-        type: 'UPDATE-INPUT-TEXT',
-        inputText: inputText,
-    } as const
-
-}
+// export const updateInputTextAC = (inputText: string) => { //actionCreator with auto type
+//     return {
+//         type: 'UPDATE-INPUT-TEXT',
+//         inputText: inputText,
+//     } as const
+// }
 
 
 const initialState: profilePageType = {
-    newPostDataMessage: '',
+
     postsData: [
         {id: '1', message: 'hi what\'s new', likesAmount: '6'},
         {id: '2', message: 'Hello i\'m an alien from planet of ww1', likesAmount: '15'},
@@ -49,9 +48,9 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
 
             return {...state, postsData: [newPost, ...state.postsData,], newPostDataMessage: ""}
 
-        case 'UPDATE-INPUT-TEXT':
-
-            return {...state, newPostDataMessage: action.inputText}
+        // case 'UPDATE-INPUT-TEXT':
+        //
+        //     return {...state, newPostDataMessage: action.inputText}
 
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
