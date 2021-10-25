@@ -2,14 +2,15 @@ import React, {ChangeEvent} from "react";
 import c from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {ActionsTypes, postsDataType} from "../../../Redux/store";
-import {addPostAC, updateInputTextAC} from "../../../Redux/profileReducer";
+
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type MyPostsPropsType = {
     postsData: Array<postsDataType>
     addPost: (postText: string) => void
-    updateInputText: (inputText: string) => void
-    message: string
+    //updateInputText: (inputText: string) => void
+    //message: string
     //dispatch: (action: ActionsTypes) => void
 }
 
@@ -18,31 +19,37 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     const postsElements = props.postsData.map(p => <Post message={p.message} likesAmount={p.likesAmount}/>)
 
-    const addNewPost = () => {
+    // const addNewPost = () => {
+    //
+    //     let text = props.message
+    //     // text ? props.dispatch({type: 'ADD-POST', postText: text}) : alert('message is expected')
+    //     text ? props.addPost(text) : alert('message is expected')
+    //     //text ? props.dispatch(addPostAC(text)) : alert('message is expected')
+    // }
 
-        let text = props.message
-        // text ? props.dispatch({type: 'ADD-POST', postText: text}) : alert('message is expected')
-        text ? props.addPost(text) : alert('message is expected')
-        //text ? props.dispatch(addPostAC(text)) : alert('message is expected')
-    }
+    // const onChangeInputValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    //     let inputText = e.currentTarget.value
+    //     props.updateInputText(inputText)
+    //     // props.dispatch({type: "UPDATE-INPUT-TEXT", inputText: e.currentTarget.value})
+    //     //props.dispatch(updateInputTextAC(e.currentTarget.value))
+    // }
 
-    const onChangeInputValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let inputText = e.currentTarget.value
-        props.updateInputText(inputText)
-        // props.dispatch({type: "UPDATE-INPUT-TEXT", inputText: e.currentTarget.value})
-        //props.dispatch(updateInputTextAC(e.currentTarget.value))
+    const onAddPost = (values: newPostType) => {
+        props.addPost(values.newPostText)
     }
 
     return (
         <div>
             My posts
 
-            <div>
-                <textarea onChange={onChangeInputValue} value={props.message}/>
-                {/*<textarea ref={newPostRef} onChange={onChangeInputValue} value={props.message}/>*/}
-                <br/>
-                <button onClick={addNewPost}>Add post</button>
-            </div>
+            {/*<form>*/}
+            {/*    <textarea onChange={onChangeInputValue} value={props.message}/>*/}
+            {/*    /!*<textarea ref={newPostRef} onChange={onChangeInputValue} value={props.message}/>*!/*/}
+            {/*    <br/>*/}
+            {/*    <button onClick={addNewPost}>Add post</button>*/}
+            {/*</form>*/}
+
+            <ReduxPostForm onSubmit={onAddPost}/>
 
             {postsElements}
 
@@ -51,59 +58,21 @@ export const MyPosts = (props: MyPostsPropsType) => {
 }
 
 
+type newPostType = {
+    newPostText: string
+}
 
+const addPostForm: React.FC<InjectedFormProps<newPostType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={'textarea'} name={'newPostText'} placeholder={'Type your post here'}/>
 
+            <br/>
+            <button type={'submit'}>Add post</button>
+        </form>
+    )
+}
 
-
-
-// import React, {ChangeEvent} from "react";
-// import c from './MyPosts.module.css'
-// import {Post} from "./Post/Post";
-// import {ActionsTypes, postsDataType} from "../../../Redux/store";
-// import {addPostAC, updateInputTextAC} from "../../../Redux/profileReducer";
-//
-//
-// type MyPostsPropsType = {
-//     postsData: Array<postsDataType>
-//     //addPost: (postText: string) => void
-//     //updateInputText: (inputText: string) => void
-//     message: string
-//     dispatch: (action: ActionsTypes) => void
-// }
-//
-// export const MyPosts = (props: MyPostsPropsType) => {
-//
-//
-//     const postsElements = props.postsData.map(p => <Post message={p.message} likesAmount={p.likesAmount}/>)
-//
-//     const addNewPost = () => {
-//
-//         let text = props.message
-//         // text ? props.dispatch({type: 'ADD-POST', postText: text}) : alert('message is expected')
-//         //text ? props.addPost(text) : alert('message is expected')
-//         text ? props.dispatch(addPostAC(text)) : alert('message is expected')
-//     }
-//
-//     const onChangeInputValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
-//         //let inputText = e.currentTarget.value
-//         //props.updateInputText(inputText)
-//         // props.dispatch({type: "UPDATE-INPUT-TEXT", inputText: e.currentTarget.value})
-//         props.dispatch(updateInputTextAC(e.currentTarget.value))
-//     }
-//
-//     return (
-//         <div>
-//             My posts
-//
-//             <div>
-//                 <textarea onChange={onChangeInputValue} value={props.message}/>
-//                 {/*<textarea ref={newPostRef} onChange={onChangeInputValue} value={props.message}/>*/}
-//                 <br/>
-//                 <button onClick={addNewPost}>Add post</button>
-//             </div>
-//
-//             {postsElements}
-//
-//         </div>
-//     )
-// }
+const ReduxPostForm = reduxForm<newPostType | any>({
+    form: 'ProfileAddNewPostForm' // unique name of using form
+}) (addPostForm)
