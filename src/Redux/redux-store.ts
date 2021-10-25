@@ -6,7 +6,8 @@ import {StoreType} from "./store";
 import {usersReducer} from "./users-reducer";
 import {Provider} from "react-redux";
 import {authReducer} from "./auth-reducer";
-import   thunkMiddleWare from 'redux-thunk'
+import thunkMiddleWare from 'redux-thunk'
+import {reducer as formReducer} from 'redux-form'
 
 let rootReducer = combineReducers(
     {
@@ -15,6 +16,7 @@ let rootReducer = combineReducers(
         sidebar: sidebarReducer,
         usersPage: usersReducer,
         auth: authReducer,
+        form: formReducer,
     }
 )
 export type AppStateType = ReturnType<typeof rootReducer>
