@@ -4,7 +4,7 @@ import {
     setUserProfile,
     updateInputTextAC
 } from "./profileReducer";
-import {dialogsReducer, SendMessageType, UpdateMessageBodyType} from "./dialogsReducer";
+import {dialogsReducer, SendMessageType} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 
 
@@ -30,7 +30,7 @@ export type profilePageType = {
 export type dialogsPageType = {
     dialogsData: Array<dialogsDataType>
     messagesData: Array<messagesDataType>
-    newMessageBody: string
+    //newMessageBody: string
 }
 export type sidebarType = {}
 export type stateType = {
@@ -47,7 +47,7 @@ export type StoreType = {
 }
 
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateInputTextAC> |
-    UpdateMessageBodyType | SendMessageType | ReturnType<typeof setUserProfile>
+      SendMessageType | ReturnType<typeof setUserProfile>
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -81,7 +81,7 @@ export const store: StoreType = {
                 {id: '5', message: 'Hello guys'},
                 {id: '6', message: 'Hello guys'},
             ],
-            newMessageBody: '',
+           // newMessageBody: '',
         },
         sidebar: {}
     },

@@ -1,23 +1,26 @@
 import {ActionsTypes, dialogsPageType} from "./store";
 
-export type UpdateMessageBodyType = {
-    type: 'UPDATE-MESSAGE-BODY'
-    newText: string
-}
+// export type UpdateMessageBodyType = {
+//     type: 'UPDATE-MESSAGE-BODY'
+//     newText: string
+// }
 export type SendMessageType = {
     type: 'SEND-MESSAGE'
+    newMessageBody: string
 }
-export const sendMessageAC = (): SendMessageType => { //actionCreator
+
+export const sendMessageAC = (newMessageBody: string): SendMessageType => { //actionCreator
     return {
         type: 'SEND-MESSAGE',
+        newMessageBody: newMessageBody,
     }
 }
-export const UpdateMessageBodyAC = (newText: string): UpdateMessageBodyType => {  //actionCreator
-    return {
-        type: 'UPDATE-MESSAGE-BODY',
-        newText: newText,
-    }
-}
+// export const UpdateMessageBodyAC = (newText: string): UpdateMessageBodyType => {  //actionCreator
+//     return {
+//         type: 'UPDATE-MESSAGE-BODY',
+//         newText: newText,
+//     }
+// }
 
 const initState: dialogsPageType = {
     dialogsData: [
@@ -36,24 +39,24 @@ const initState: dialogsPageType = {
         {id: '5', message: 'Hello guys'},
         {id: '6', message: 'Hello guys'},
     ],
-    newMessageBody: '',
+   // newMessageBody: '',
 }
 
 export const dialogsReducer = (state: dialogsPageType = initState, action: ActionsTypes) => {
 
     switch (action.type) {
 
-        case 'UPDATE-MESSAGE-BODY':
-
-            return {...state, newMessageBody: action.newText}
+        // case 'UPDATE-MESSAGE-BODY':
+        //
+        //     return {...state, newMessageBody: action.newText}
 
         case 'SEND-MESSAGE':
-            let messageText = state.newMessageBody
+            let messageText = action.newMessageBody
 
             return {
                 ...state,
                 messagesData: [...state.messagesData, {id: '7', message: messageText}],
-                newMessageBody: "",
+
             }
     }
 

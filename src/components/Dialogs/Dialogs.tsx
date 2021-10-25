@@ -12,7 +12,7 @@ type DialogsPropsType = {
     //newMessageBody: string
     //dispatch: (action: ActionsTypes) => void
     updateNewMessageBody: (newText: string) => void
-    sendMessage: () => void
+    sendMessage: (message?: string) => void
     dialogsPage: dialogsPageType
     isAuth: boolean
 }
@@ -25,17 +25,22 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const messagesElements = state.messagesData.map(m => <MessageItem content={m.message}/>)
 
-    const newMessageBody = state.newMessageBody
+   // const newMessageBody = state.newMessageBody
 
-    const onMessageClick = () => {
-        //props.dispatch(sendMessageAC())
-        props.sendMessage()
-    }
+    // const onMessageClick = () => {
+    //     //props.dispatch(sendMessageAC())
+    //     props.sendMessage()
+    // }
 
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newText = e.currentTarget.value
-        //props.dispatch(UpdateMessageBodyAC(newText))
-        props.updateNewMessageBody(newText)
+    // const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    //     let newText = e.currentTarget.value
+    //     //props.dispatch(UpdateMessageBodyAC(newText))
+    //     props.updateNewMessageBody(newText)
+    // }
+
+    const addNewMessage = (value: AddMessageFormType) => {
+
+        props.sendMessage(value.newMessageBody);
     }
 
     if (props.isAuth === false) return <Redirect to={'/login'}/>
@@ -61,7 +66,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                 {/*        <button onClick={onMessageClick}>Add</button>*/}
                 {/*    </div>*/}
                 {/*</form>*/}
-                <AddMessageFormRedux onSubmit={(formData: AddMessageFormType)=>{console.log(formData)}}/>
+                <AddMessageFormRedux onSubmit={addNewMessage}/>
             </div>
         </div>
 
@@ -74,7 +79,7 @@ type AddMessageFormType = {
 
 }
 
-const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) => {
+const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>>  = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -89,6 +94,6 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) 
     )
 }
 
-const AddMessageFormRedux = reduxForm<AddMessageFormType>({
+const AddMessageFormRedux = reduxForm<AddMessageFormType & any>({
     form: 'dialogAddMessageForm' // unique name of using form
 }) (AddMessageForm)
