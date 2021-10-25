@@ -32,8 +32,8 @@ export class ProfileStatus extends React.Component<ProfileStatusType, any> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<localStateType>, snapshot?: any) {
-        if(prevProps.status !== this.props.status)
-        this.setState({state: this.props.status})
+        if(prevProps.status !== this.props.status) // prohibited using setState() without if statement
+        this.setState({state: this.props.status}) // otherwise react wil throw error: too many rerender
     }
 
     render() {
