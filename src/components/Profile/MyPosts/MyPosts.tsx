@@ -4,6 +4,9 @@ import {Post} from "./Post/Post";
 import {ActionsTypes, postsDataType} from "../../../Redux/store";
 
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, requiredField} from "../../../Utilits/validators/validators";
+import {Textarea} from "../../coomon/FormsControls";
+
 
 
 type MyPostsPropsType = {
@@ -58,6 +61,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
 }
 
 
+const maxLength10 = maxLengthCreator(10)
+
 type newPostType = {
     newPostText: string
 }
@@ -65,9 +70,9 @@ type newPostType = {
 const addPostForm: React.FC<InjectedFormProps<newPostType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component={'textarea'} name={'newPostText'} placeholder={'Type your post here'}/>
+            <Field component={Textarea} name={'newPostText'} placeholder={'Type your post here'}
+                   validate={[requiredField, maxLength10]}/>
 
-            <br/>
             <button type={'submit'}>Add post</button>
         </form>
     )
