@@ -11,7 +11,7 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {AppStateType} from "./Redux/redux-store";
 import {HeaderContainer} from "./components/Header/headerContainer";
-import {Login} from "./components/login/Login";
+import Login from "./components/login/Login";
 
 
 type AppPropsType = {
