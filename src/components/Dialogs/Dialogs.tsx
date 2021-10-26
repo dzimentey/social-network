@@ -5,6 +5,8 @@ import {MessageItem} from "./Message/MessageItem";
 import {  dialogsPageType,} from "../../Redux/store";
 import {Redirect} from "react-router-dom";
 import  {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../coomon/FormsControls";
+import {maxLengthCreator, requiredField} from "../../Utilits/validators/validators";
 
 type DialogsPropsType = {
     //dialogsData: Array<dialogsDataType>
@@ -73,6 +75,8 @@ export const Dialogs = (props: DialogsPropsType) => {
     )
 }
 
+const maxLength50 = maxLengthCreator(50)
+
 type AddMessageFormType = {
 
     newMessageBody: string
@@ -83,7 +87,8 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>>  = (props)
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'} name = {'newMessageBody'} placeholder={'Type your text here'}/>
+                <Field component={Textarea} name = {'newMessageBody'} placeholder={'Type your text here'}
+                validate = {[requiredField, maxLength50]}/>
 
             </div>
             <div>
