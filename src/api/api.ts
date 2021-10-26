@@ -13,28 +13,28 @@ const instance = axios.create({
 
 export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
 
-    return instance.get( `users?page=${currentPage}&count=${pageSize}`)
+    return instance.get(`users?page=${currentPage}&count=${pageSize}`)
         .then(response => {
             return response.data
         })
 }
 
- const getUserData = (userId: number) => {
-    return instance.get( `profile/${userId}`, )
+const getUserData = (userId: number) => {
+    return instance.get(`profile/${userId}`,)
         .then(response => {
             return response.data
         })
 }
 
 export const unFollowUser = (id: string | number) => {
-    return instance.delete(baseUrl + `follow/${id}`, )
+    return instance.delete(baseUrl + `follow/${id}`,)
         .then(response => {
             return response.data
         })
 }
 
 export const followUser = (id: string | number) => {
-    return instance.post(baseUrl + `follow/${id}`, {}, )
+    return instance.post(baseUrl + `follow/${id}`, {},)
         .then(response => {
             return response.data
         })
@@ -45,25 +45,25 @@ export const usersAPI = {
 
     getUsers(currentPage: number = 1, pageSize: number = 10) {
 
-        return instance.get( `users?page=${currentPage}&count=${pageSize}`)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return response.data
             })
     },
 
-    getUserData(userId: number)  {
+    getUserData(userId: number) {
         return profileAPI.getProfile(userId)
     },
 
-    unFollowUser(id: string | number)  {
-        return instance.delete(baseUrl + `follow/${id}`, )
+    unFollowUser(id: string | number) {
+        return instance.delete(baseUrl + `follow/${id}`,)
             .then(response => {
                 return response.data
             })
     },
 
     followUser(id: string | number) {
-        return instance.post(baseUrl + `follow/${id}`, {}, )
+        return instance.post(baseUrl + `follow/${id}`, {},)
             .then(response => {
                 return response.data
             })
@@ -75,13 +75,20 @@ export const usersAPI = {
 export const authAPI = {
     me() {
         return instance.get('auth/me')
-    }
+    },
+    login(email: string, password : string, rememberMe: boolean = false) {
+        return instance.post(`auth/login`, {email , password, rememberMe})
+    },
+    logout() {
+        return instance.delete(`auth/login`)
+    },
+
 };
 
 export const profileAPI = {
 
-    getProfile(userId: number)  {
-        return instance.get( `profile/${userId}`, )
+    getProfile(userId: number) {
+        return instance.get(`profile/${userId}`,)
             .then(response => {
                 return response.data
             })
