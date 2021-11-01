@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/social-network/static/css/main.fabc6720.chunk.css",
-    "main.js": "/social-network/static/js/main.737cf790.chunk.js",
-    "main.js.map": "/social-network/static/js/main.737cf790.chunk.js.map",
-    "runtime-main.js": "/social-network/static/js/runtime-main.02a4055c.js",
-    "runtime-main.js.map": "/social-network/static/js/runtime-main.02a4055c.js.map",
-    "static/js/2.c70d2655.chunk.js": "/social-network/static/js/2.c70d2655.chunk.js",
-    "static/js/2.c70d2655.chunk.js.map": "/social-network/static/js/2.c70d2655.chunk.js.map",
-    "static/js/3.4eebefd8.chunk.js": "/social-network/static/js/3.4eebefd8.chunk.js",
-    "static/js/3.4eebefd8.chunk.js.map": "/social-network/static/js/3.4eebefd8.chunk.js.map",
+    "main.css": "/social-network/static/css/main.82dbe11b.chunk.css",
+    "main.js": "/social-network/static/js/main.a234caf4.chunk.js",
+    "main.js.map": "/social-network/static/js/main.a234caf4.chunk.js.map",
+    "runtime-main.js": "/social-network/static/js/runtime-main.3a57c645.js",
+    "runtime-main.js.map": "/social-network/static/js/runtime-main.3a57c645.js.map",
+    "static/js/2.cd3d0620.chunk.js": "/social-network/static/js/2.cd3d0620.chunk.js",
+    "static/js/2.cd3d0620.chunk.js.map": "/social-network/static/js/2.cd3d0620.chunk.js.map",
+    "static/js/3.d326662f.chunk.js": "/social-network/static/js/3.d326662f.chunk.js",
+    "static/js/3.d326662f.chunk.js.map": "/social-network/static/js/3.d326662f.chunk.js.map",
     "index.html": "/social-network/index.html",
-    "static/css/main.fabc6720.chunk.css.map": "/social-network/static/css/main.fabc6720.chunk.css.map",
-    "static/js/2.c70d2655.chunk.js.LICENSE.txt": "/social-network/static/js/2.c70d2655.chunk.js.LICENSE.txt",
+    "static/css/main.82dbe11b.chunk.css.map": "/social-network/static/css/main.82dbe11b.chunk.css.map",
+    "static/js/2.cd3d0620.chunk.js.LICENSE.txt": "/social-network/static/js/2.cd3d0620.chunk.js.LICENSE.txt",
     "static/media/homer-warrior.0d5993ef.jpg": "/social-network/static/media/homer-warrior.0d5993ef.jpg",
     "static/media/preloader.a1a99674.gif": "/social-network/static/media/preloader.a1a99674.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.02a4055c.js",
-    "static/js/2.c70d2655.chunk.js",
-    "static/css/main.fabc6720.chunk.css",
-    "static/js/main.737cf790.chunk.js"
+    "static/js/runtime-main.3a57c645.js",
+    "static/js/2.cd3d0620.chunk.js",
+    "static/css/main.82dbe11b.chunk.css",
+    "static/js/main.a234caf4.chunk.js"
   ]
 }
