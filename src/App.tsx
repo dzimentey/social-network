@@ -11,12 +11,16 @@ import {AppStateType} from "./Redux/redux-store";
 import {HeaderContainer} from "./components/Header/headerContainer";
 import Login from "./components/login/Login";
 import {connect} from "react-redux";
-import {getAuthUserData} from "./Redux/auth-reducer";
+import {initializeAppTC} from "./Redux/app-reducer";
+import {Preloader} from "./components/coomon/preloader/Preloader";
+import {compose} from "redux";
+import {withRouter} from "react-router";
 
 
 type AppPropsType = {
-    store:  AppStateType //StoreType
-    getAuthUserData: () => void
+    //store: AppStateType //StoreType
+    initializeAppTC: () => void
+    initialized: boolean
 }
 
 
@@ -24,15 +28,17 @@ class App extends React.Component<AppPropsType, any> {
 
     componentDidMount() {
 
-        this.props.getAuthUserData()
+        this.props.initializeAppTC()
     }
 
     render() {
 
-        //const state = props.store.getState()
+        // if (!this.props.initialized) {
+        //     return <Preloader/>
+        // }
 
         return (
-            <BrowserRouter>
+
                 <div className="App">
                     <HeaderContainer/>
                     <Nav/>
@@ -71,10 +77,16 @@ class App extends React.Component<AppPropsType, any> {
                     </div>
                     {/*<Footer/>*/}
                 </div>
-            </BrowserRouter>
+
         );
     }
 }
 
-export default connect(null, {getAuthUserData: getAuthUserData})(App);
+const mapStateToProps = (state: AppStateType) => ({
+    initialized: state.app.initialized
+})
+
+export default  compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps, {initializeAppTC}))(App)
 
