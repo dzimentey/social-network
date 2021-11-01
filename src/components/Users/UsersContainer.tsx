@@ -16,6 +16,13 @@ import {Users} from "./Users";
 import {Preloader} from "../coomon/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFollowingProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersPage
+} from "../../Redux/users-selectors";
 
 
 export type mapStateToPropsReturnType = {
@@ -77,12 +84,12 @@ class UsersContainerClass extends React.Component<UsersPropsType> {
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress,
+        users: getUsersPage(state),
+        pageSize: getPageSize(state), //use selector instead following-- state.usersPage.pageSize
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingProgress(state),
     }
 }
 
