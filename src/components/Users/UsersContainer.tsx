@@ -1,8 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    followSuccess, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollowSuccess,
-    UserType, toggleFollowingProcess, getUsers, follow, unfollow
+    follow,
+    getUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleFollowingProcess,
+    toggleIsFetching,
+    unfollow,
+    UserType
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Users} from "./Users";
@@ -107,6 +114,6 @@ export const UsersContainer = compose<React.ComponentType>(
             toggleFollowingProcess,
             getUsers,
         }
-    ), withAuthRedirect)   // 2-nd function wrapper --> redirect unauthorised user to login page
+    ))   // 2-nd function wrapper --> redirect unauthorised user to login page
 (UsersContainerClass)     // Component
 
