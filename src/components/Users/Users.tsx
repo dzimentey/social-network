@@ -3,8 +3,6 @@ import s from "./Users.module.css";
 import {UserType} from "../../Redux/users-reducer";
 import userPhoto from "../../assets/images/homer-warrior.jpg";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {followUser, unFollowUser} from "../../api/api";
 
 type UsersPropsType = {
     totalUsersCount: number
