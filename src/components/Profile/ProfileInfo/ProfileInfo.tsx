@@ -2,6 +2,7 @@ import React from "react";
 import {Preloader} from "../../coomon/preloader/Preloader";
 import userPhoto from "../../../assets/images/homer-warrior.jpg";
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoType = {
     profile: any
@@ -23,7 +24,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             <div>
                 <img src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
 
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
 
         </div>
