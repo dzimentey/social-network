@@ -11,8 +11,8 @@ export const ProfileStatusWithHooks = (props: ProfileStatusType) => {
     const [status, setStatus] = useState(props.status)
 
     useEffect(() => {
-        setStatus(props.status)  // synchronisation current status
-    }, [editMode])          // synchronise when editMode has changed
+        setStatus(props.status)  //  current status synchronisation
+    }, [editMode])          // make synchronise when editMode has changed
 
     const editModeOn = () => {
         setEditMode(true) // set editMode to true
