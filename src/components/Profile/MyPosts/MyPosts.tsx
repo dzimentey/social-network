@@ -17,7 +17,7 @@ type MyPostsPropsType = {
     //dispatch: (action: ActionsTypes) => void
 }
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo( (props: MyPostsPropsType) => {
 
 
     const postsElements = props.postsData.map(p => <Post message={p.message} likesAmount={p.likesAmount}/>)
@@ -58,7 +58,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
         </div>
     )
-}
+})
 
 
 const maxLength10 = maxLengthCreator(10)
