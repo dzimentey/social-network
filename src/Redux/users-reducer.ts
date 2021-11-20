@@ -1,18 +1,5 @@
-// const addPostAC = (text: string) => {  //actionCreator with auto type
-//     return {
-//         type: 'ADD-POST',
-//         postText: text,
-//     } as const
-// }
-// const updateInputTextAC = (inputText: string) => { //actionCreator with auto type
-//     return {
-//         type: 'UPDATE-INPUT-TEXT',
-//         inputText: inputText,
-//     } as const
-//
-// }
-
 import {followUser, unFollowUser, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export type UserType = {
     id: string
@@ -23,6 +10,7 @@ export type UserType = {
     location: { city: string, country: string }
     photos: { small: string, large: string }
 }
+
 export type UsersStateType = {
     users: Array<UserType>
     pageSize: number
@@ -43,8 +31,13 @@ type UnfollowActionType = {
 }
 
 export type UserActionsType =
-    FollowActionType | UnfollowActionType | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching> | ReturnType< typeof toggleFollowingProcess>
+    FollowActionType
+    | UnfollowActionType
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingProcess>
 
 const initialState: UsersStateType = {
 
@@ -140,15 +133,22 @@ export const followSuccess = (userId: string): FollowActionType => ({type: 'FOLL
 export const unfollowSuccess = (userId: string): UnfollowActionType => ({type: 'UNFOLLOW', userId})
 export const setUsers = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
-export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalUsersCount} as const)
+export const setTotalUsersCount = (totalUsersCount: number) => ({
+    type: 'SET-TOTAL-USERS-COUNT',
+    totalUsersCount
+} as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
-export const toggleFollowingProcess = (isFetching: boolean, userId: string) => ({type: 'TOGGLE-IS-FOLLOWING-PROCESS', isFetching, userId} as const)
+export const toggleFollowingProcess = (isFetching: boolean, userId: string) => ({
+    type: 'TOGGLE-IS-FOLLOWING-PROCESS',
+    isFetching,
+    userId
+} as const)
 
 
 export const getUsers = (currentPage: number, pageSize: number) => {
 
-    return (dispatch: any) => {
-        dispatch (toggleIsFetching(true))
+    return async (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
         // if (this.props.users.length === 0)
 
         // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
@@ -157,18 +157,17 @@ export const getUsers = (currentPage: number, pageSize: number) => {
         //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
         //     }
         // })
-        usersAPI.getUsers(currentPage, pageSize)
-            .then((data) => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(data.items));
-                dispatch(setTotalUsersCount(data.totalCount));
-            });
+        const data = await usersAPI.getUsers(currentPage, pageSize);
+
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
     }
 }
 
 export const follow = (userId: string) => {
 
-    return (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleFollowingProcess(true, userId))
         // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
         //     withCredentials: true,
@@ -176,19 +175,18 @@ export const follow = (userId: string) => {
         //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
         //     }
         // })
-        followUser(userId)
-            .then((data) => {
-                if (data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-              dispatch(toggleFollowingProcess(false, userId))
-            });
+        const data = await followUser(userId)
+
+        if (data.resultCode === 0) {
+            dispatch(followSuccess(userId))
+        }
+        dispatch(toggleFollowingProcess(false, userId))
     }
 }
 
 export const unfollow = (userId: string) => {
 
-    return (dispatch: any) => {
+    return async (dispatch: any) => {
         dispatch(toggleFollowingProcess(true, userId))
         // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
         //     withCredentials: true,
@@ -196,12 +194,11 @@ export const unfollow = (userId: string) => {
         //         "API-KEY" : "49c9fc27-b65d-436b-ad55-f34f2b452a65"
         //     }
         // })
-        unFollowUser(userId)
-            .then((data) => {
+        const data = await unFollowUser(userId)
+
                 if (data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId))
                 }
                 dispatch(toggleFollowingProcess(false, userId))
-            });
     }
 }
