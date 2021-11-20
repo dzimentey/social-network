@@ -1,5 +1,6 @@
 import { postsDataType, profilePageType,} from "./store";
 import {profileAPI, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 
 export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC> |
@@ -70,26 +71,28 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
 
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
 
-export const getUserProfile = (userId: number) => (dispatch: any) => {
-    usersAPI.getUserData(userId).then((data) => {
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+   const data = await usersAPI.getUserData(userId)
+
         dispatch(setUserProfile(data))
-    })
+
 }
 
 export const setStatus = (status: string) => ({type: 'SET-STATUS',  status} as const)
 
-export const getStatus = (userId: number) => (dispatch: any) => {
-    profileAPI.getStatus(userId).then((response) => {
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getStatus(userId)
+
         dispatch(setStatus(response.data))
-    })
+
 }
 
-export const updateStatus = (status: string) => (dispatch: any) => {
-    profileAPI.updateStatus(status).then((response) => {
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.updateStatus(status)
+
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status))
         }
-    })
 }
 
 export const deletePost = (postId: string) => ({type: 'DELETE-POST',  postId} as const);
