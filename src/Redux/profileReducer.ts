@@ -3,7 +3,7 @@ import {profileAPI, usersAPI} from "../api/api";
 
 
 export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC> |
-    ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus>
+    ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus> | ReturnType<typeof deletePost>
 
 export const addPostAC = (text: string) => {  //actionCreator with auto type
     return {
@@ -59,6 +59,8 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
 
             return {...state, status: action.status}
 
+        case "DELETE-POST":
+            return {...state, postsData: state.postsData.filter(p => p.id !== action.postId)}
 
         default:
             return state;
@@ -89,3 +91,5 @@ export const updateStatus = (status: string) => (dispatch: any) => {
         }
     })
 }
+
+export const deletePost = (postId: string) => ({type: 'DELETE-POST',  postId} as const)
