@@ -92,4 +92,4 @@ export const updateStatus = (status: string) => (dispatch: any) => {
     })
 }
 
-export const deletePost = (postId: string) => ({type: 'DELETE-POST',  postId} as const)
+export const deletePost = (postId: string) => ({type: 'DELETE-POST',  postId} as const);
