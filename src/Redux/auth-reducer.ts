@@ -1,5 +1,7 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {Dispatch} from "redux";
+
 
 const SET_USER_DATA = 'social-network/auth/SET-USER-DATA'
 
@@ -43,22 +45,21 @@ export const setAuthUserData = (id: null | number, email: string | null, login: 
     } as const
 })
 
-
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
 
-export const getAuthUserData = () => (dispatch: any) => {
-    authAPI.me()
-        .then((response) => {
+
+export const getAuthUserData = () => async (dispatch: Dispatch) => {
+    const response = await authAPI.me()
+
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;
                 dispatch(setAuthUserData(id, email, login, true))
             }
-        });
 }
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
-    authAPI.login(email, password, rememberMe)
-        .then((response) => {
+export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: any) => {
+    const response = await authAPI.login(email, password, rememberMe)
+
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             } else {
@@ -66,14 +67,13 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
                 let action = stopSubmit('login', {_error: errorMessage});
                 dispatch(action)
             }
-        });
+
 }
 
-export const logout = () => (dispatch: any) => {
-    authAPI.logout()
-        .then((response) => {
+export const logout = () => async (dispatch: any) => {
+    const response = await authAPI.logout()
+
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, null, false))
             }
-        });
 }
