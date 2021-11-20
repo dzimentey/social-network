@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
+const SET_USER_DATA = 'social-network/auth/SET-USER-DATA'
 
 type UserServerType = {
     id: null | number
@@ -23,7 +24,7 @@ const initialState: UserServerType = {
 export const authReducer = (state = initialState, action: UserActionServerType): UserServerType => {
 
     switch (action.type) {
-        case 'SET-USER-DATA':
+        case SET_USER_DATA:
             return {
                 ...state,
                 ...action.payload,
@@ -37,7 +38,7 @@ export const authReducer = (state = initialState, action: UserActionServerType):
 
 
 export const setAuthUserData = (id: null | number, email: string | null, login: string | null, isAuth: boolean) => ({
-    type: 'SET-USER-DATA', payload: {
+    type: SET_USER_DATA, payload: {
         id, email, login, isAuth
     } as const
 })
