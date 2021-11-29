@@ -17,10 +17,12 @@ type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
 
+    let portionSize = 20;
+
     return <div>
 
-        <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage}
-                   onPageChanged={props.onPageChanged}/>
+        <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage}
+                   onPageChanged={props.onPageChanged} portionSize={portionSize}/>
 
         {props.users.map((u: UserType) => <User follow={props.follow}
                                                    unfollow={props.unfollow}
