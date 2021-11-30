@@ -30,7 +30,7 @@ type PathParamType = {
 
 type CommonPropsType = RouteComponentProps<PathParamType> & ProfileContainerPropsType
 
-class ProfileContainerComponent extends React.Component<CommonPropsType, any> {
+class ProfileContainer extends React.Component<CommonPropsType, any> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
@@ -61,13 +61,13 @@ const mapStateToProps = (state: AppStateType) => ({
 })
 
 
-// let AuthRedirectComponent: any = withAuthRedirect(ProfileContainerComponent);
+// let AuthRedirectComponent: any = withAuthRedirect(ProfileContainer);
 //
 // let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 
-export const ProfileContainer = compose<React.ComponentType>(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}), // 1-st wrapper
     withRouter,                                                 // 2-nd wrapper
     //withAuthRedirect                                            // 3-rd wrapper
-)(ProfileContainerComponent);                                   // Component
+)(ProfileContainer);                                   // Component
