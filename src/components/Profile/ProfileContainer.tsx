@@ -3,7 +3,7 @@ import React from "react";
 import {Profile} from "./Profile";
 
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, updateStatus} from "../../Redux/profileReducer";
+import {getStatus, getUserProfile, savePhoto, updateStatus} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router";
 
@@ -21,6 +21,7 @@ type ProfileContainerPropsType = {
     updateStatus: (status: string) => void
     status: string
     authorisedUseId: string | number
+    savePhoto: (e: any) => void
 }
 
 type PathParamType = {
@@ -32,7 +33,7 @@ type CommonPropsType = RouteComponentProps<PathParamType> & ProfileContainerProp
 
 class ProfileContainer extends React.Component<CommonPropsType, any> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorisedUseId;
@@ -43,12 +44,24 @@ class ProfileContainer extends React.Component<CommonPropsType, any> {
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+       this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<CommonPropsType>, prevState: Readonly<any>, snapshot?: any) {
+
+        if (this.props.match.params.userId !== prevProps.match.params.userId){
+        this.refreshProfile()
+    }}
+
     render() {
 
         //if (this.props.isAuth === false) return <Redirect to={'/login'}/>
 
         return (
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}
+            isOwner={!!this.props.match.params.userId} savePhoto={this.props.savePhoto}
+            />
         )
     }
 }
@@ -67,7 +80,7 @@ const mapStateToProps = (state: AppStateType) => ({
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}), // 1-st wrapper
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}), // 1-st wrapper
     withRouter,                                                 // 2-nd wrapper
     //withAuthRedirect                                            // 3-rd wrapper
 )(ProfileContainer);                                   // Component

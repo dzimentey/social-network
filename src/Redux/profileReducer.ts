@@ -4,7 +4,7 @@ import {Dispatch} from "redux";
 
 
 export type ProfileReducerActionsTypes = ReturnType<typeof addPostAC> |
-    ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus> | ReturnType<typeof deletePost>
+    ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus> | ReturnType<typeof deletePost> | ReturnType<typeof setPhotoAC>
 
 export const addPostAC = (text: string) => {  //actionCreator with auto type
     return {
@@ -12,13 +12,6 @@ export const addPostAC = (text: string) => {  //actionCreator with auto type
         postText: text,
     } as const
 }
-// export const updateInputTextAC = (inputText: string) => { //actionCreator with auto type
-//     return {
-//         type: 'UPDATE-INPUT-TEXT',
-//         inputText: inputText,
-//     } as const
-// }
-
 
 const initialState: profilePageType = {
 
@@ -63,6 +56,9 @@ export const profileReducer = (state: profilePageType = initialState, action: Pr
         case "DELETE-POST":
             return {...state, postsData: state.postsData.filter(p => p.id !== action.postId)}
 
+        case "SET-PHOTO":
+            return {...state, profile: {...state.profile, photos: action.photos}}
+
         default:
             return state;
     }
@@ -95,4 +91,13 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
         }
 }
 
+export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(setPhotoAC(response.data.data.photos))
+    }
+}
+
 export const deletePost = (postId: string) => ({type: 'DELETE-POST',  postId} as const);
+export const setPhotoAC = (photos: File) => ({type: 'SET-PHOTO',  photos} as const);
