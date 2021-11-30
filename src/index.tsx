@@ -5,18 +5,18 @@ import App from "./App";
 import './index.css';
 import {Provider} from "react-redux";  // plugin redux to the App
 import {store} from "./Redux/redux-store";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 
 
 //export const rerenderTree = () => {
 
     ReactDOM.render(
         <React.StrictMode>
-            <BrowserRouter>
+            <HashRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <App />
             </Provider>
-                </BrowserRouter>
+                </HashRouter>
         </React.StrictMode>
         ,
         document.getElementById('root')
