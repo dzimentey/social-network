@@ -13,6 +13,7 @@ import {initializeAppTC} from "./Redux/app-reducer";
 import {Preloader} from "./components/coomon/preloader/Preloader";
 import {compose} from "redux";
 import {withRouter} from "react-router";
+import {withSuspense} from "./hoc/withSuspense";
 //import DialogsContainer from "./components/Dialogs/DialogsContainer";
 //import ProfileContainer from "./components/Profile/ProfileContainer";
 
@@ -60,11 +61,8 @@ class App extends React.Component<AppPropsType> {
                         </Suspense>
                     }
                     />
-                    <Route path={'/dialogs'} render={() =>
-                        <Suspense fallback={'Loading...'}>
-                            <DialogsContainer // lazy loaded component, shows 'Loading' while component is loading
-                            />
-                        </Suspense>
+                    <Route path={'/dialogs'} render={ withSuspense(DialogsContainer)
+                        // lazy loaded component, shows 'Loading' while component is loading
                         //     <Dialogs dialogsData={state.dialogsPage.dialogsData}
                         //                                                 messagesData={state.dialogsPage.messagesData}
                         //                                                 newMessageBody={state.dialogsPage.newMessageBody}
