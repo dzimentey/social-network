@@ -1,4 +1,4 @@
-## Social Network https://dzimentey.github.io/social-network/
+## Social Network https://dzimentey.github.io/social-network/#/users
 
 # Getting Started with Create React App
 
